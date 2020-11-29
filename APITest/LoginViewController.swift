@@ -14,8 +14,18 @@ class LoginViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemRed
+        login()
         
-        let Url = String(format: "http://dars.in/api/v1/login")
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//            let tabBarVC = ViewController()
+//            UIApplication.shared.windows.first?.rootViewController = tabBarVC
+//            UIApplication.shared.windows.first?.makeKeyAndVisible()
+//        }
+        
+    }
+    
+    func login() {
+        let Url = String(format: "https://dars.in/api/v1/login")
         guard let serviceUrl = URL(string: Url) else { return }
         let parameterDictionary = ["email" : "kkk@kk.com", "password" : "kirolos123"]
         var request = URLRequest(url: serviceUrl)
@@ -34,9 +44,10 @@ class LoginViewController: UIViewController {
             if let data = data {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                    print(json)
+                    print(json)
+                    print("====================================================================")
                     DispatchQueue.main.async {
-                        let tabBarVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tabBarVC")
+                        let tabBarVC = ViewController()
                         UIApplication.shared.windows.first?.rootViewController = tabBarVC
                         UIApplication.shared.windows.first?.makeKeyAndVisible()
                     }

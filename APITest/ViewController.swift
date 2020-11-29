@@ -14,12 +14,12 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .green
         
-        let Url = String(format: "http://dars.in/api/v1/all-courses?statge_id=5")
+        let Url = String(format: "https://dars.in/api/v1/all-courses?statge_id=5")
         guard let serviceUrl = URL(string: Url) else { return }
         var request = URLRequest(url: serviceUrl)
         request.httpMethod = "POST"
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImZiMTYwYzY3OWI2NzkwZTUwNTdiYjMzM2E4MjNkMGJhZTNiNDZiNDM1ZmFiN2YwMjlkY2M3ZjY3MDg4MWU0OGYxN2E2OGM4Y2E0NWE2N2MxIn0.eyJhdWQiOiI5IiwianRpIjoiZmIxNjBjNjc5YjY3OTBlNTA1N2JiMzMzYTgyM2QwYmFlM2I0NmI0MzVmYWI3ZjAyOWRjYzdmNjcwODgxZTQ4ZjE3YTY4YzhjYTQ1YTY3YzEiLCJpYXQiOjE2MDY2NDA5MzMsIm5iZiI6MTYwNjY0MDkzMywiZXhwIjoxNjM4MTc2OTMzLCJzdWIiOiI0NyIsInNjb3BlcyI6W119.f2o4SmnKIZ6jtGUagDuSoo4iBSOvT3jx3hzp1trrwUEFHy7hGo_jJ-y68OKJJ0sEXQlvzhmd_TBCwSQk04lxlREEcIIFwMLbjCB1D2FcZRm5cqH-RmXXoF5gWv9pYZ5pXFV9LEK78CFZ4bdrWz7v_h3USaNK_J-PCSUUSvF_o-J9kNlmANcU16vG995bFxuFY-3LLuT70PddiuQOCGJ-IiWjcJViNZQ208UbnAj3Qrt65-Wqr2-KRgQEgX7xJBpGOs7Vac0DDj04Nbtmi_g8wm8nenj7LrkIa8FWOYW20u6sNMEIGOIyNFuCd_hCkvka7Co2Gev1r2zkuRm07lzNWeXfyM39HgpCmpDUDFGqfa1Ad4EtwM9vBdU3E4Ep4SmCUgK0xt2kUQl0fMd64sPNK5O-kglrdmWBbXkt5XEhlmfa-1C1WzEX-41GU6IzpAII-2mFqBL1WkQta5rCGF9kz9uFOhyKfjwOBwgB_-9khbylIB12FnRsblyLBnHZKcxMmPp3OrGAu1jFJyPXE3916fsKCWUIRFiquGx0NKIFVu8QOSRMWjtB3MUgKVVbUlChXp4G7nCE5-PLJItjzI5O9srcZVuhod1FszoU1Pvmb7sMpaXP8NYU5fz_uzYNftY1WZTfBQt_HjEOkvHiNI-aMVsB0pe04_n7n9YKQxKRQpw", forHTTPHeaderField: "Authorization")
+//        request.setValue("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjhkMWU0MWI3ZTY4MjEzYTJkODk3ZWUyNjhmYTIzNjA4NzFmMjU3NDI5OGExYTVkNmE1NTc0ZTA2NzQyNjE1MThjMGE0MDIzNzcwYWY2MTU5In0.eyJhdWQiOiI5IiwianRpIjoiOGQxZTQxYjdlNjgyMTNhMmQ4OTdlZTI2OGZhMjM2MDg3MWYyNTc0Mjk4YTFhNWQ2YTU1NzRlMDY3NDI2MTUxOGMwYTQwMjM3NzBhZjYxNTkiLCJpYXQiOjE2MDY2NTgzMjUsIm5iZiI6MTYwNjY1ODMyNSwiZXhwIjoxNjM4MTk0MzI1LCJzdWIiOiI0NyIsInNjb3BlcyI6W119.HSoxjIWkiYW4YrZ-2ujBqsWV3MujoojiK1f9mEUMYxxWAFEDSwh7rWWTRJZgANuFLrPvDNbPXrJg25iaRa5rLjhcJv6iHtKlOEaHtbUkdzym1SKfg39KXK0H1gTiSLeGFEwXrt9nBQJ45qPeFR3tvkGxw1aXx0pRWSFbNfgop-P808hPvw_e6kSZu_XdCVdBrlRbK8VPAI6Pcc_cWl9WX4H4TqZVJyFsvisslz9Kmfjm30Td7VKDh7GMV0ooh9sUaziHTmB1kzcOYwWlLg_caNAs2eQ_o3Q1wSj9tk_TgNyDTBxzSZmAkCd3nw3mP2ot-hN6QmiTHCKno1yUm1wav24KnDvdGXb2ZoEPrFw-qlaLJq-hz8JmTuP8eNwtcCJXQpEhVIVvXWJdByxD1S2dPSRCfXN_lMIi-mehdZcbnPUh2d7buyk65luS9pmkIblP4qvUI_E9e4KZ-TBBvTPgiTIpIkm5acB7r4H8jr8w7LrVxBGI4L90KqFc_EiLf1CwHtqTAe_rM8cOch060q_APfmK-P5FrI-4ZjuUcKkfQCstxU8bHIz1f77_h5xv5SpkZh00l1_ev5gA2QSPdKnmRxbPH3mxKQhV5w77_LGSQyZKzvyFuGg8kSwBmXaNZT03wzJAnCMai0pq24dnd1jXYx4UE_1dDiiw75tdYV0zIaw", forHTTPHeaderField: "Authorization")
         
 //        print(request.headers)
         let session = URLSession.shared
@@ -37,7 +37,5 @@ class ViewController: UIViewController {
             }
         }.resume()
     }
-
-
 }
 
