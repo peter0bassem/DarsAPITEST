@@ -8,6 +8,9 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    
+    var dispatchGroup = DispatchGroup()
+    var loginDict: [String:Any]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,13 +18,23 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemRed
         login()
+//        homeAPI()
+//        getData()
+    }
+    
+    func getData() {
+        dispatchGroup.enter()
+        homeAPI()
+        dispatchGroup.leave()
         
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//            let tabBarVC = ViewController()
-//            UIApplication.shared.windows.first?.rootViewController = tabBarVC
-//            UIApplication.shared.windows.first?.makeKeyAndVisible()
-//        }
+        dispatchGroup.enter()
+        login()
+        dispatchGroup.leave()
         
+        dispatchGroup.notify(queue: .main) {
+            print("============")
+            print("finished all tasks")
+        }
     }
     
     func login() {
@@ -46,8 +59,11 @@ class LoginViewController: UIViewController {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
                     print(json)
                     print("====================================================================")
+                    guard let jsonDict = json as? [String:Any], let token = jsonDict["access_token"] as? String else { return }
+                    self.loginDict = jsonDict
                     DispatchQueue.main.async {
                         let tabBarVC = ViewController()
+                        tabBarVC.token = token
                         UIApplication.shared.windows.first?.rootViewController = tabBarVC
                         UIApplication.shared.windows.first?.makeKeyAndVisible()
                     }
@@ -58,15 +74,28 @@ class LoginViewController: UIViewController {
         }.resume()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func homeAPI() {
+        let Url = String(format: "https://dars.in/api/v1/all-courses?statge_id=5")
+        guard let serviceUrl = URL(string: Url) else { return }
+        var request = URLRequest(url: serviceUrl)
+        request.httpMethod = "POST"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+//        request.setValue("Bearer \(token ?? "")", forHTTPHeaderField: "Authorization")
+        
+//        print("headers", request.allHTTPHeaderFields)
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print(response)
+            }
+            if let data = data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print(json)
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
     }
-    */
-
 }
