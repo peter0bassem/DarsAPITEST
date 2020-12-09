@@ -20,15 +20,21 @@ class LoginViewController: UIViewController {
         login()
 //        homeAPI()
 //        getData()
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            let tabBarVC = ViewController()
+//            UIApplication.shared.windows.first?.rootViewController = tabBarVC
+//            UIApplication.shared.windows.first?.makeKeyAndVisible()
+//        }
     }
     
     func getData() {
         dispatchGroup.enter()
-        homeAPI()
+        login()
         dispatchGroup.leave()
         
         dispatchGroup.enter()
-        login()
+        homeAPI()
         dispatchGroup.leave()
         
         dispatchGroup.notify(queue: .main) {
@@ -40,7 +46,7 @@ class LoginViewController: UIViewController {
     func login() {
         let Url = String(format: "https://dars.in/api/v1/login")
         guard let serviceUrl = URL(string: Url) else { return }
-        let parameterDictionary = ["email" : "kkk@kk.com", "password" : "kirolos123"]
+        let parameterDictionary = ["email" : "kirolosalfy@gmail.com", "password" : "kirolos"]
         var request = URLRequest(url: serviceUrl)
         request.httpMethod = "POST"
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
@@ -67,6 +73,7 @@ class LoginViewController: UIViewController {
                         UIApplication.shared.windows.first?.rootViewController = tabBarVC
                         UIApplication.shared.windows.first?.makeKeyAndVisible()
                     }
+//                    self.homeAPI()
                 } catch {
                     print(error)
                 }
@@ -79,7 +86,7 @@ class LoginViewController: UIViewController {
         guard let serviceUrl = URL(string: Url) else { return }
         var request = URLRequest(url: serviceUrl)
         request.httpMethod = "POST"
-        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+//        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
 //        request.setValue("Bearer \(token ?? "")", forHTTPHeaderField: "Authorization")
         
 //        print("headers", request.allHTTPHeaderFields)
